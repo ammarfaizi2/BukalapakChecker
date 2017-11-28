@@ -112,7 +112,7 @@ class Login extends Crawlers implements CrawlersContract
 			print "OK!" . PHP_EOL;
 			return true;
 		} else {
-			print "Login Failed!".PHP_EOL;
+			print "Login Failed!".PHP_EOL."   ";
 			return false;
 		}
 	}
