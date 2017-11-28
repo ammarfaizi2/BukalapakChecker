@@ -2,6 +2,8 @@
 
 namespace Bukalapak\Contracts;
 
+use Bukalapak\BukalapakChecker;
+
 interface Crawlers
 {
 	/**

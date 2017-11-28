@@ -54,14 +54,22 @@ final class Curl
 	}
 
 	/**
-	 * @var array $opt
+	 * @param array $opt
 	 */
-	public function setopt($opt)
+	public function setOpt($opt)
 	{
 		if (! is_array($opt)) {
 			throw new \Exception("setopt parameter must be array ".gettype($opt)." given.", 1);
 		}
 		$this->userOpt = $opt;
+	}
+
+	/**
+	 * @param string $userAgent
+	 */
+	public function userAgent($userAgent)
+	{
+		$this->defaultOpt[CURLOPT_USERAGENT] = $userAgent;
 	}
 
 	/**
@@ -75,6 +83,12 @@ final class Curl
 		} else {
 			$this->defaultOpt[CURLOPT_POSTFIELDS] = $data;
 		}
+	}
+
+	public function cookieJar($file)
+	{
+		$this->defaultOpt[CURLOPT_COOKIEJAR] = $file;
+		$this->defaultOpt[CURLOPT_COOKIEFILE] = $file;
 	}
 
 	/**
