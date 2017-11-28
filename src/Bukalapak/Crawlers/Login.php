@@ -45,12 +45,23 @@ class Login extends Crawlers implements CrawlersContract
 		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash());
 		$out = $ch->exec();*/
 		// file_put_contents("a.tmp", $out);
+		$context = [];
 		$a = file_get_contents("a.tmp");
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
 		$a = explode('</form>', $a[1], 2);
 		self::buildHiddenInput($a[0], $context);
+		$context['user_session[username]'] = $this->ins->email;
+		$context['user_session[password]'] = $this->ins->password;
+		$context['commit'] = "login";
+		var_dump($context);
 	}
 
+	/**
+	 *
+	 * @param array $data
+	 * @param array &$context
+	 * @return array
+	 */
 	private static function buildHiddenInput($data, &$context)
 	{
 		$a = explode("<input", $data);
@@ -68,9 +79,7 @@ class Login extends Crawlers implements CrawlersContract
 				$context[html_entity_decode($b[0], ENT_QUOTES, 'UTF-8')] = html_entity_decode($c[0], ENT_QUOTES, 'UTF-8');
 			}
 		}
-		var_dump($context);
-		die;
-		var_dump($a);
+		return $context;
 	}
 
 	/**

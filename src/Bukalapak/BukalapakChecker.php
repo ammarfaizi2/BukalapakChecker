@@ -15,12 +15,12 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	/**
 	 * @var string
 	 */
-	private $email;
+	public $email;
 
 	/**
 	 * @var string
 	 */
-	private $password;
+	public $password;
 
 	/**
 	 * @var string
