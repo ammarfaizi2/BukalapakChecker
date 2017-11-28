@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @author Ammar Faizi <ammarfaizi2@gmail.com>
+ * @link https://www.facebook.com/ammarfaizi2
+ * @license MIT
+ */
 final class Curl
 {
 	/**
@@ -21,6 +26,16 @@ final class Curl
 	 * @var array
 	 */
 	private $defaultOpt = [];
+
+	/**
+	 * @var string
+	 */
+	private $error;
+
+	/**
+	 * @var int
+	 */
+	private $errno;
 
 	/**
 	 * Constructor.
@@ -49,6 +64,22 @@ final class Curl
 		$this->userOpt = $opt;
 	}
 
+	/**
+	 * @param array|string $data
+	 */
+	public function postData($data, $urlencoded = false)
+	{
+		$this->defaultOpt[CURLOPT_POST] = true;
+		if (is_array($data) && $urlencoded) {
+			$this->defaultOpt[CURLOPT_POSTFIELDS] = http_build_query($data);
+		} else {
+			$this->defaultOpt[CURLOPT_POSTFIELDS] = $data;
+		}
+	}
+
+	/**
+	 * Exec curl.
+	 */
 	public function exec()
 	{
 		$ch = curl_init($this->url);
@@ -58,12 +89,42 @@ final class Curl
 		$this->info  = curl_getinfo($ch);
 		$this->errno = curl_errno($ch);
 		$this->error = curl_error($ch);
+		curl_close($ch);
+		return $out;
 	}
 
+	/**
+	 * Build curl context opt.
+	 */
 	private function buildOptContext()
 	{
 		foreach ($this->userOpt as $k => $v) {
 			$this->defaultOpt[$k] = $v;
 		}
+	}
+
+	/**
+	 * @return string
+	 */
+	public function error()
+	{
+		return $this->error;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function errno()
+	{
+		return $this->errno;
+	}
+
+	/**
+	 * @param string $key
+	 * @return mixed
+	 */
+	public function info($key = false)
+	{
+		return $key ? $this->info[$key] : $this->info;
 	}
 }
