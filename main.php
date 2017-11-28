@@ -13,7 +13,7 @@ foreach ($credentials as $k => $v) {
 	 * @param string $email
 	 * @param string $password
 	 */
-	$app = new BukalapakChecker($v[0], $v[1]);
+	$app = new \Bukalapak\BukalapakChecker($v[0], $v[1]);
 	$app->check();
 	print " ".$k.". " . $app->output() . PHP_EOL;
 }
