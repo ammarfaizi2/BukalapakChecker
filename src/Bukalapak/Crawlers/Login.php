@@ -21,6 +21,11 @@ class Login extends Crawlers implements CrawlersContract
 	private $ins;
 
 	/**
+	 * @var array
+	 */
+	private $context = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @param \Bukalapak\BukalapakChecker $instance
@@ -35,26 +40,42 @@ class Login extends Crawlers implements CrawlersContract
 	 */
 	public function action()
 	{
-		$this->buildLoginPage();
+		print "   Login... ";
+		$this->buildLoginContext();
+		$this->submitLogin();
 	}
 
-	public function buildLoginPage()
+	private function buildLoginContext()
 	{
-		/*$ch = new Curl("https://m.bukalapak.com/login");
+		$ch = new Curl("https://m.bukalapak.com/login");
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
-		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash());
-		$out = $ch->exec();*/
-		// file_put_contents("a.tmp", $out);
+		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
+		$out = $ch->exec();
+		file_put_contents("a.tmp", $out);
 		$context = [];
 		$a = file_get_contents("a.tmp");
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
-		$a = explode('</form>', $a[1], 2);
-		self::buildHiddenInput($a[0], $context);
-		$context['user_session[username]'] = $this->ins->email;
-		$context['user_session[password]'] = $this->ins->password;
-		$context['commit'] = "login";
-		var_dump($context);
+		if (isset($a[1])) {
+			$a = explode('</form>', $a[1], 2);
+			self::buildHiddenInput($a[0], $context);
+			$cotext['user_session[username]'] = $this->ins->email;
+			$context['user_session[password]'] = $this->ins->password;
+			$context['commit'] = "login";
+			$this->context = $context;
+		}
 	}
+
+	private function submitLogin()
+	{
+		if ($this->context) {
+			$ch = new Curl("https://m.bukalapak.com/user_sessions");
+			$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
+			$ch->postData($this->context, true);
+			$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
+			$out = $ch->exec();
+		}
+	}
+
 
 	/**
 	 *
@@ -87,6 +108,12 @@ class Login extends Crawlers implements CrawlersContract
 	 */
 	public function get()
 	{
-
+		if (strpos(file_get_contents(COOKIEPATH . "/" . $this->ins->hash), "track_login	true") !== false) {
+			print "OK!" . PHP_EOL;
+			return true;
+		} else {
+			print "Login Failed!".PHP_EOL;
+			return false;
+		}
 	}
 }

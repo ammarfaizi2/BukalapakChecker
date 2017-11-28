@@ -14,6 +14,7 @@ foreach ($credentials as $k => $v) {
 	 * @param string $password
 	 */
 	$app = new \Bukalapak\BukalapakChecker($v[0], $v[1]);
+	print " ".($k+1).". ".implode(" | ", $v) . PHP_EOL;
 	$app->check();
-	print " ".$k.". " . $app->output() . PHP_EOL;
+	print "" . $app->output() . PHP_EOL;
 }

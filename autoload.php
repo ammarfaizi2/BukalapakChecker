@@ -1,7 +1,7 @@
 <?php
 
 define("BASEPATH", __DIR__);
-define("COOKIEPATH", __DIR__."/dat");
+define("COOKIEPATH", __DIR__."/cookies");
 
 is_dir(COOKIEPATH) or mkdir(COOKIEPATH);
 

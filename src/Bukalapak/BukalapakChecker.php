@@ -3,6 +3,7 @@
 namespace Bukalapak;
 
 use Bukalapak\Crawlers\Login;
+use Bukalapak\Crawlers\BukaDompet;
 use Bukalapak\Contracts\BukalapakChecker as BukalapakCheckerContracts;
 
 /**
@@ -25,7 +26,7 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	/**
 	 * @var string
 	 */
-	private $hash;
+	public $hash;
 
 	/**
 	 * @var string
@@ -46,7 +47,14 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	{
 		$crawler = new Login($this);
 		$crawler->action();
-		$this->loginStatus = $crawler->get();
+		if ($crawler->get()) {
+			$crawler = new BukaDompet($this);
+			$crawler->action();
+			$result = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "live", "data" => $crawler->get()]];
+		} else {
+			$result = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "die", "data" => new \StdClass]];
+		}
+		$this->json = json_encode($result);
 	}
 
 	final public function hash()
