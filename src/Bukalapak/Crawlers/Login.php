@@ -35,16 +35,42 @@ class Login extends Crawlers implements CrawlersContract
 	 */
 	public function action()
 	{
-		$this->getLoginPage();
+		$this->buildLoginPage();
 	}
 
-	public function getLoginPage()
+	public function buildLoginPage()
 	{
-		$ch = new Curl("https://m.bukalapak.com/login");
+		/*$ch = new Curl("https://m.bukalapak.com/login");
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
-		$ch->cookieJar(COOKIEPATH."/");
-		$out = $ch->exec();
-		file_put_contents("a.tmp", $out);
+		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash());
+		$out = $ch->exec();*/
+		// file_put_contents("a.tmp", $out);
+		$a = file_get_contents("a.tmp");
+		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
+		$a = explode('</form>', $a[1], 2);
+		self::buildHiddenInput($a[0], $context);
+	}
+
+	private static function buildHiddenInput($data, &$context)
+	{
+		$a = explode("<input", $data);
+		foreach ($a as $val) {
+			if (count(explode("type=\"hidden\"", $val, 2)) > 1) {
+				$b = explode(">", $val, 2);
+				$b = explode("name=\"", $b[0], 2);
+				$b = explode("\"", $b[1], 2);
+				$c = explode("value=\"", $val, 2);
+				if (isset($c[1])) {
+					$c = explode("\"", $c[1], 2);
+				} else {
+					$c[0] = "";
+				}
+				$context[html_entity_decode($b[0], ENT_QUOTES, 'UTF-8')] = html_entity_decode($c[0], ENT_QUOTES, 'UTF-8');
+			}
+		}
+		var_dump($context);
+		die;
+		var_dump($a);
 	}
 
 	/**
