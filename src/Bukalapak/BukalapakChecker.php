@@ -2,7 +2,7 @@
 
 namespace Bukalapak;
 
-use Bukalapak\Contracts\BukalapakChecker;
+use Bukalapak\Contracts\BukalapakChecker as BukalapakCheckerContracts;
 
 /**
  * @author Ammar Faizi <ammarfaizi2@gmail.com>
