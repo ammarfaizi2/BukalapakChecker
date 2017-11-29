@@ -155,17 +155,20 @@
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
+					console.log(that);
 					json = {
-						"email": that.credentials[that.credentialsPointer]['email'],
-						"password":  that.credentials[that.credentialsPointer]['password'],
-						"status": "Internal Error",
-						"data": []
+						"email": that.credentials[that.credentialsPointer - 1]['email'],
+						"password":  that.credentials[that.credentialsPointer - 1]['password'],
+						"result": {
+							"status": "Internal Error",
+							"data": []					
+						}
 					};
 				}
 				if (json['result']['status'] == "live") {
 					document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #16d30c;\">"+json['email']+"|"+json['password']+"<br>Status : Live<br>Saldo BukaDompet : "+json['result']['data']['saldo_buka_dompet']+"</td></tr>";
 				} else {
-					if (json['status'] === "die") {
+					if (json['result']['status'] === "die") {
 						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
 					} else {
 						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fff600;\">"+json['email']+"|"+json['password']+"<br>Status : Internal Error</td></tr>";
