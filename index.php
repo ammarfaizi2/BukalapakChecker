@@ -155,10 +155,9 @@
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
-					console.log(that);
 					json = {
-						"email": that.credentials[that.credentialsPointer - 1]['email'],
-						"password":  that.credentials[that.credentialsPointer - 1]['password'],
+						"email": this.credentials[this.credentialsPointer]['email'],
+						"password": this.credentials[this.credentialsPointer]['password'],
 						"result": {
 							"status": "Internal Error",
 							"data": []					
