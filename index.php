@@ -138,7 +138,7 @@
 					that = this;
 				ch.onreadystatechange = function(){
 					if (this.readyState === 4) {
-						that.buildHTMLContext(this.responseText);
+						that.buildHTMLContext(this.responseText, that);
 						if (!that.feofCredentials()) {
 							that.enableTextArea();
 						}
@@ -149,15 +149,15 @@
 				return true;
 			}
 
-			buildHTMLContext(json)
+			buildHTMLContext(json, that)
 			{
 				// {"email":"ammarfaizi2@gmail.com","password":"triosemut123","result":{"status":"live","data":{"saldo_buka_dompet":"0"}}}
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
 					json = {
-						"email":this.credentials[this.credentialsPointer]['email'],
-						"password": this.credentials[this.credentialsPointer]['password'],
+						"email": that.credentials[that.credentialsPointer]['email'],
+						"password":  that.credentials[that.credentialsPointer]['password'],
 						"status": "Internal Error",
 						"data": []
 					};
