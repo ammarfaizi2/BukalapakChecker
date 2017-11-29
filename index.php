@@ -19,13 +19,13 @@
 					<div style="padding-left: 20%; background-color: #09c0e5; width: 80.1%;padding-top:3px;padding-bottom: 3px;">
 						<p style="font-size:20px;"><strong>Input email &amp; password</strong></p>
 					</div>
-					<textarea id="credentials" placeholder="email1@example.com|password" style="resize: none; width: 345px; height: 521px;" required></textarea>
+					<textarea id="credentials" placeholder="email1@example.com|password" style="resize: none; width: 400px; height: 400px;" required></textarea>
 				</td>
 				<td>
 					<div style="padding-left: 15%; background-color: #09c0e5; width: 85.1%;padding-top:3px;padding-bottom: 3px;">
 						<p style="font-size:20px;"><strong>Input socks</strong></p>
 					</div>
-					<textarea id="socks" placeholder="127.0.0.1:8000" style="resize: none; width: 150px; height: 521px;"></textarea>
+					<textarea id="socks" placeholder="127.0.0.1:8000" style="resize: none; width: 150px; height: 400px;"></textarea>
 				</td>
 				<td>
 					<div>
@@ -33,7 +33,7 @@
 					</div>
 				</td>
 				<td>
-					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:100%; overflow-y:scroll; position:absolute; width: 20%;" id="rbound"><p align="center" style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table></div>
+					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:470.7px; margin-top:-17.7%; overflow-y:scroll; position:absolute; width: 20%;" id="rbound"><p align="center" style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table></div>
 				</td>
 			</tr>
 		</table>
