@@ -152,11 +152,24 @@
 			buildHTMLContext(json)
 			{
 				// {"email":"ammarfaizi2@gmail.com","password":"triosemut123","result":{"status":"live","data":{"saldo_buka_dompet":"0"}}}
-				json = JSON.parse(json);
+				try {
+					json = JSON.parse(json);
+				} catch (e) {
+					json = {
+						"email":this.credentials[this.credentialsPointer]['email'],
+						"password": this.credentials[this.credentialsPointer]['password'],
+						"status": "Internal Error",
+						"data": []
+					};
+				}
 				if (json['result']['status'] == "live") {
 					document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #16d30c;\">"+json['email']+"|"+json['password']+"<br>Status : Live<br>Saldo BukaDompet : "+json['result']['data']['saldo_buka_dompet']+"</td></tr>";
 				} else {
-					document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
+					if (json['status'] === "die") {
+						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
+					} else {
+						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fff600;\">"+json['email']+"|"+json['password']+"<br>Status : Internal Error</td></tr>";
+					}
 				}
 			}
 
