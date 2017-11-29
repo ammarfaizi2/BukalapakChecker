@@ -9,7 +9,7 @@ if (isset($_GET['email'], $_GET['password'])) {
 	 * @param string $email
 	 * @param string $password
 	 */
-	$app = new \Bukalapak\BukalapakChecker($_GET['email'], $_GET['password'], true);
+	$app = new \Bukalapak\BukalapakChecker(trim($_GET['email']), trim($_GET['password']), true);
 	$app->check();
 	print $app->output();
 } else {
