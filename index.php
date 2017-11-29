@@ -154,7 +154,6 @@
 
 			buildHTMLContext(json, cred)
 			{
-				// {"email":"ammarfaizi2@gmail.com","password":"triosemut123","result":{"status":"live","data":{"saldo_buka_dompet":"0"}}}
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
@@ -184,9 +183,6 @@
 			}
 		}
 		document.getElementById('fr').addEventListener("submit", function() {
-			/*if (document.getElementById('rbound').innerHTML == "") {
-				document.getElementById('rbound').innerHTML = '<p style="font-size:20px;"><strong>Result</strong></p><table style="height: 521px;background-color: greenyellow;" id="tbres"></table>';
-			}*/
 			var context_stream = new ContextStream();
 			context_stream.buildContextStream();
 			context_stream = context_stream.get();
