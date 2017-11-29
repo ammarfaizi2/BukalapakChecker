@@ -40,7 +40,7 @@ class Login extends Crawlers implements CrawlersContract
 	 */
 	public function action()
 	{
-		print "   Login... ";
+		$this->ins->apiRequest or print "   Login... ";
 		$this->buildLoginContext();
 		$this->submitLogin();
 	}
@@ -50,10 +50,8 @@ class Login extends Crawlers implements CrawlersContract
 		$ch = new Curl("https://m.bukalapak.com/login");
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
 		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
-		$out = $ch->exec();
-		file_put_contents("a.tmp", $out);
+		$a = $ch->exec();
 		$context = [];
-		$a = file_get_contents("a.tmp");
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
 		if (isset($a[1])) {
 			$a = explode('</form>', $a[1], 2);
@@ -109,10 +107,10 @@ class Login extends Crawlers implements CrawlersContract
 	public function get()
 	{
 		if (strpos(file_get_contents(COOKIEPATH . "/" . $this->ins->hash), "track_login	true") !== false) {
-			print "OK!" . PHP_EOL;
+			$this->ins->apiRequest or print "OK!" . PHP_EOL;
 			return true;
 		} else {
-			print "Login Failed!".PHP_EOL."   ";
+			$this->ins->apiRequest or print "Login Failed!".PHP_EOL."   ";
 			return false;
 		}
 	}

@@ -29,15 +29,21 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	public $hash;
 
 	/**
+	 * @var bool
+	 */
+	public $apiRequest;
+
+	/**
 	 * @var string
 	 */
 	private $json;
 
-	final public function __construct($email, $password)
+	final public function __construct($email, $password, $apiRequest = false)
 	{
 		$this->email    = $email;
 		$this->password = $password;
 		$this->hash = sha1($email.$password);
+		$this->apiRequest = $apiRequest;
 	}
 
 	/**

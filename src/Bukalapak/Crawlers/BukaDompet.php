@@ -45,7 +45,7 @@ class BukaDompet extends Crawlers implements CrawlersContract
 	 */
 	public function action()
 	{
-		print "   Cek BukaDompet..." . PHP_EOL . "   ";
+		$this->ins->apiRequest or print "   Cek BukaDompet..." . PHP_EOL . "   ";
 		$this->saldo = $this->getBukaDompet();
 	}
 
@@ -67,6 +67,6 @@ class BukaDompet extends Crawlers implements CrawlersContract
 	 */
 	public function get()
 	{
-		return ["saldo" => $this->saldo];
+		return ["saldo_buka_dompet" => $this->saldo];
 	}
 }
