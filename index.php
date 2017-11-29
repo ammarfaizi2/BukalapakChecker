@@ -33,11 +33,11 @@
 					</div>
 				</td>
 				<td>
-					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px;" id="rbound">
+					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:100%; overflow-y:scroll;" id="rbound">
 					    <p style="font-size:20px;">
 					        <strong>Result</strong>
 					    </p>
-					    <div style="height:100%; overflow-y:scroll;">
+					    <div style="">
 					        <table align="top" style="background-color: greenyellow;" id="tbres"></table>
 					    </div>
 					</div>
