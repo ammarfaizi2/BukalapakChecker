@@ -33,7 +33,7 @@
 					</div>
 				</td>
 				<td>
-					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:100%; overflow-y:scroll; position:absolute; width: 20%;" id="rbound"><p style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table>
+					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:100%; overflow-y:scroll; position:absolute; width: 20%;" id="rbound"><p align="center" style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table></div>
 					</div>
 				</td>
 			</tr>
