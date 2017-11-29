@@ -135,10 +135,14 @@
 			check()
 			{
 				var ch 	 = new XMLHttpRequest(),
-					that = this;
+					that = this,
+					cred = {
+						"email": this.credentials[this.credentialsPointer]['email'],
+						"password": this.credentials[this.credentialsPointer]['password']
+					};
 				ch.onreadystatechange = function(){
 					if (this.readyState === 4) {
-						that.buildHTMLContext(this.responseText, that);
+						that.buildHTMLContext(this.responseText, cred);
 						if (!that.feofCredentials()) {
 							that.enableTextArea();
 						}
@@ -149,15 +153,15 @@
 				return true;
 			}
 
-			buildHTMLContext(json, that)
+			buildHTMLContext(json, cred)
 			{
 				// {"email":"ammarfaizi2@gmail.com","password":"triosemut123","result":{"status":"live","data":{"saldo_buka_dompet":"0"}}}
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
 					json = {
-						"email": this.credentials[this.credentialsPointer]['email'],
-						"password": this.credentials[this.credentialsPointer]['password'],
+						"email": cred['email'],
+						"password": cred['password'],
 						"result": {
 							"status": "Internal Error",
 							"data": []					
