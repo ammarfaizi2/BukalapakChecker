@@ -31,7 +31,7 @@
 			</div>
 			<div class="wq">
 				<div>
-					<button id="go" style="margin-bottom:-100px;">Check</button>
+					<button id="go" style="margin-top:-100px;">Check</button>
 				</div>
 			</div>
 		</div>
