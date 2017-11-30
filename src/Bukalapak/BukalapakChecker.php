@@ -66,7 +66,7 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	{
 		$crawler = new Login($this);
 		if ($crawler->action() === "forbidden") {
-			$this->json = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "forbidden", "data" => []]];
+			$this->json = json_encode(["email" => $this->email, "password" => $this->password, "result" => ["status" => "forbidden", "data" => []]]);
 			return false;
 		}
 		if ($crawler->get()) {
