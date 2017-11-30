@@ -10,6 +10,9 @@ if (isset($_GET['email'], $_GET['password'])) {
 	 * @param string $password
 	 */
 	$app = new \Bukalapak\BukalapakChecker(trim($_GET['email']), trim($_GET['password']), true);
+	if (isset($_GET['socks'])) {
+		$app->socks(trim($_GET['socks']));
+	}
 	$app->check();
 	print $app->output();
 } else {

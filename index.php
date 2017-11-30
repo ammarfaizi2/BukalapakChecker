@@ -42,6 +42,7 @@
 		</div>
 	</form>
 	<script type="text/javascript">
+	try {
 		/**
 		 * @author Ammar Faizi <ammarfaizi2@gmail.com>
 		 * @license MIT
@@ -109,6 +110,9 @@
 			nextSocks()
 			{
 				this.socksPointer++;
+				if (this.socksPointer === this.socks.length) {
+					this.socksPointer = 0;
+				}
 			}
 
 			nextCredentials()
@@ -174,7 +178,12 @@
 							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
 						break;
 						case 'forbidden':
-							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #503fbf;\">"+json['email']+"|"+json['password']+"<br>Status : Forbidden</td></tr>";
+							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #7564f4;\">"+json['email']+"|"+json['password']+"<br>Status : Forbidden</td></tr>";
+							nextSocks();
+						break;
+						case 'curl_error':
+							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #ff6702;\">"+json['email']+"|"+json['password']+"<br>Status : Curl Error<br>Error Message : "+json['result']['message']+"</td></tr>";
+							nextSocks();
 						break;
 						default: 
 							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fff600;\">"+json['email']+"|"+json['password']+"<br>Status : Internal Error</td></tr>";
@@ -185,7 +194,9 @@
 
 			buildQuery()
 			{
-				return "email=" + encodeURIComponent(this.credentials[this.credentialsPointer]['email']) + "&password=" + encodeURIComponent(this.credentials[this.credentialsPointer]['password']);
+				return "email=" + encodeURIComponent(this.credentials[this.credentialsPointer]['email']) + "&password=" + encodeURIComponent(this.credentials[this.credentialsPointer]['password']) + (
+						this.socks.length ? "&socks=" + this.socks[this.socksPointer] : ""
+					);
 			}
 		}
 		document.getElementById('fr').addEventListener("submit", function() {
@@ -197,10 +208,14 @@
 				while (ax.feofCredentials()) {
 					if (ax.check()) {
 						ax.nextCredentials();
+						ax.nextSocks();
 					}
 				}
 			}
 		});
+	} catch (e) {
+		alert(e.getMessage());
+	}
 	</script>
 </body>
 </html>

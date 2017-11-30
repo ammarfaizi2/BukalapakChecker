@@ -44,8 +44,11 @@ class Login extends Crawlers implements CrawlersContract
 	public function action()
 	{
 		$this->ins->apiRequest or print "   Login... ";
-		if ($this->buildLoginContext() === "forbidden") {
+		$context = $this->buildLoginContext();
+		if ($context === "forbidden") {
 			return "forbidden";
+		} elseif (is_array($context)) {
+			return $context;
 		}
 		$this->submitLogin();
 	}
@@ -59,6 +62,11 @@ class Login extends Crawlers implements CrawlersContract
 		$a = $ch->exec();
 		if (trim($a) === "Forbidden") {
 			return "forbidden";
+		}
+		if ($ch = $ch->error()) {
+			return [
+				$ch
+			];	
 		}
 		$context = [];
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
