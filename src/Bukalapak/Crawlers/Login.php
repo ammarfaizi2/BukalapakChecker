@@ -33,6 +33,9 @@ class Login extends Crawlers implements CrawlersContract
 	public function __construct(BukalapakChecker $instance)
 	{
 		$this->ins = $instance;
+		if (! file_exists(COOKIEPATH . "/" . $this->ins->hash)) {
+			file_put_contents(COOKIEPATH . "/" . $this->ins->hash, "");
+		}
 	}
 
 	/**
@@ -41,7 +44,9 @@ class Login extends Crawlers implements CrawlersContract
 	public function action()
 	{
 		$this->ins->apiRequest or print "   Login... ";
-		$this->buildLoginContext();
+		if ($this->buildLoginContext() === "forbidden") {
+			return "forbidden";
+		}
 		$this->submitLogin();
 	}
 
@@ -52,7 +57,9 @@ class Login extends Crawlers implements CrawlersContract
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
 		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
 		$a = $ch->exec();
-		var_dump($a);
+		if (trim($a) === "Forbidden") {
+			return "forbidden";
+		}
 		$context = [];
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
 		if (isset($a[1])) {

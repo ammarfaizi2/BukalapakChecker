@@ -65,10 +65,15 @@ final class BukalapakChecker implements BukalapakCheckerContracts
 	final public function check()
 	{
 		$crawler = new Login($this);
-		$crawler->action();
+		if ($crawler->action() === "forbidden") {
+			$this->json = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "forbidden", "data" => []]];
+			return false;
+		}
 		if ($crawler->get()) {
 			$crawler = new BukaDompet($this);
 			$crawler->action();
+			/*$crawler2 = new BukaEmas($this);
+			$crawler2->action();*/
 			$result = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "live", "data" => $crawler->get()]];
 		} else {
 			$result = ["email" => $this->email, "password" => $this->password, "result" => ["status" => "die", "data" => new \StdClass]];

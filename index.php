@@ -169,10 +169,16 @@
 				if (json['result']['status'] == "live") {
 					document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #16d30c;\">"+json['email']+"|"+json['password']+"<br>Status : Live<br>Saldo BukaDompet : "+json['result']['data']['saldo_buka_dompet']+"</td></tr>";
 				} else {
-					if (json['result']['status'] === "die") {
-						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
-					} else {
-						document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fff600;\">"+json['email']+"|"+json['password']+"<br>Status : Internal Error</td></tr>";
+					switch (json['result']['status']) {
+						case 'die':
+							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fc415a;\">"+json['email']+"|"+json['password']+"<br>Status : Die</td></tr>";
+						break;
+						case 'forbidden':
+							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #503fbf;\">"+json['email']+"|"+json['password']+"<br>Status : Forbidden</td></tr>";
+						break;
+						default: 
+							document.getElementById('tbres').innerHTML += "<tr><td style=\"background-color: #fff600;\">"+json['email']+"|"+json['password']+"<br>Status : Internal Error</td></tr>";
+						break;
 					}
 				}
 			}
