@@ -54,6 +54,15 @@ final class Curl
 	}
 
 	/**
+	 * @param string $socks
+	 */
+	public function socks($socks)
+	{
+		$this->userOpt[CURLOPT_PROXY] = $socks;
+		$this->userOpt[CURLOPT_PROXYTYPE] = CURLPROXY_SOCKS5;
+	}
+
+	/**
 	 * @param array $opt
 	 */
 	public function setOpt($opt)

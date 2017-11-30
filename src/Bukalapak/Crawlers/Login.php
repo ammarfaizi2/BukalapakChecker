@@ -48,9 +48,11 @@ class Login extends Crawlers implements CrawlersContract
 	private function buildLoginContext()
 	{
 		$ch = new Curl("https://m.bukalapak.com/login");
+		$this->ins->socks and $ch->socks($this->ins->socks);
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
 		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
 		$a = $ch->exec();
+		var_dump($a);
 		$context = [];
 		$a = explode('<form novalidate="novalidate" class="new_user_session" ', $a, 2);
 		if (isset($a[1])) {
@@ -67,6 +69,7 @@ class Login extends Crawlers implements CrawlersContract
 	{
 		if ($this->context) {
 			$ch = new Curl("https://m.bukalapak.com/user_sessions");
+			$this->ins->socks and $ch->socks($this->ins->socks);
 			$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
 			$ch->postData($this->context, true);
 			$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);

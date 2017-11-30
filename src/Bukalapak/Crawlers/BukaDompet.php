@@ -52,6 +52,7 @@ class BukaDompet extends Crawlers implements CrawlersContract
 	private function getBukaDompet()
 	{
 		$ch = new Curl("https://m.bukalapak.com/dompet?from=user_panel");
+		$this->ins->socks and $ch->socks($this->ins->socks);
 		$ch->userAgent("Opera/9.80 (Android; Opera Mini/19.0.2254/37.9389; U; en) Presto/2.12.423 Version/12.11");
 		$ch->cookieJar(COOKIEPATH . "/" . $this->ins->hash);
 		$a = $ch->exec();

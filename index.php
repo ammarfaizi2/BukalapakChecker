@@ -33,7 +33,7 @@
 					</div>
 				</td>
 				<td>
-					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:470.7px; margin-top:-17.7%; overflow-y:scroll; position:absolute; width: 20%;" id="rbound"><p align="center" style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table></div>
+					<div style="margin-top: -299.4px; margin-left: 10%; background-color: #09c0e5; padding-top:3px;padding-bottom: 3px; height:470.7px; margin-top:-17.7%; overflow-y:scroll; position:absolute; width: 25%;" id="rbound"><p align="center" style="font-size:20px;"><strong>Result</strong></p><table align="top" style="background-color: greenyellow;" id="tbres"></table></div>
 				</td>
 			</tr>
 		</table>
@@ -154,7 +154,6 @@
 
 			buildHTMLContext(json, cred)
 			{
-				// {"email":"ammarfaizi2@gmail.com","password":"triosemut123","result":{"status":"live","data":{"saldo_buka_dompet":"0"}}}
 				try {
 					json = JSON.parse(json);
 				} catch (e) {
